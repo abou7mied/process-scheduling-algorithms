@@ -14,11 +14,12 @@ public class Example {
         System.out.println("[2] Shortest Remaining Time");
         System.out.println("[3] Round Robin");
         System.out.println("[4] Shortest Job Next");
+        System.out.println("[5] Fair-Share");
 
 
         Scanner scanner = new Scanner(System.in);
 
-        int strategy = scanner.nextInt();
+        int selectedStrategy = scanner.nextInt();
 
         BufferedReader br = null;
         try {
@@ -34,26 +35,40 @@ public class Example {
                 jobList.add(job);
             }
 
+            int quantum;
+            AllocationStrategy strategy = null;
 
-            switch (strategy) {
+            switch (selectedStrategy) {
                 case 1:
-                    FirstComeFirstServed firstComeFirstServed = new FirstComeFirstServed(jobList);
-                    firstComeFirstServed.run();
+                    strategy = new FirstComeFirstServed(jobList);
+                    break;
+
+                case 2:
+                    System.out.println("Enter quantum: ");
+                    quantum = scanner.nextInt();
+                    strategy = new RoundRobin(jobList, quantum, true);
                     break;
 
                 case 3:
                     System.out.println("Enter quantum: ");
-                    int quantum = scanner.nextInt();
-                    RoundRobin roundRobin = new RoundRobin(jobList, quantum);
-                    roundRobin.run();
+                    quantum = scanner.nextInt();
+                    strategy = new RoundRobin(jobList, quantum);
                     break;
 
                 case 4:
-                    ShortestJobNext shortestJobNext = new ShortestJobNext(jobList);
-                    shortestJobNext.run();
+                    strategy = new ShortestJobNext(jobList);
+                    break;
+
+                case 5:
+                    System.out.println("Enter quantum: ");
+                    quantum = scanner.nextInt();
+                    strategy = new RoundRobin(jobList, quantum);
                     break;
 
             }
+
+            if (strategy != null)
+                strategy.run();
 
 
         } catch (IOException e) {
