@@ -46,7 +46,7 @@ public class Example {
                 case 2:
                     System.out.println("Enter quantum: ");
                     quantum = scanner.nextInt();
-                    strategy = new RoundRobin(jobList, quantum, true);
+                    strategy = new ShortestRemainingTime(jobList, quantum);
                     break;
 
                 case 3:

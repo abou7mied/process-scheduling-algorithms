@@ -1,7 +1,8 @@
 import java.util.List;
 
-public class ShortestRemainingTime {
-    public ShortestRemainingTime(List<Job> jobList) {
+public class ShortestRemainingTime extends RoundRobin {
+    public ShortestRemainingTime(List<Job> jobList, int quantum) {
+        super(jobList, quantum, true);
     }
 
     public void run(List<Job> jobList) {
