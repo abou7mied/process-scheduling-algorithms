@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.List;
 
 public class FirstComeFirstServed extends AllocationStrategy {
@@ -12,7 +13,6 @@ public class FirstComeFirstServed extends AllocationStrategy {
 
     public void run() {
 
-        printHeaderMessage();
 
         int count = 0;
 
@@ -28,12 +28,25 @@ public class FirstComeFirstServed extends AllocationStrategy {
             job.waitingTime = job.turnAroundTime - job.getCpuTime();
             avgWaitingTime += job.waitingTime;
             avgTurnAroundTime += job.turnAroundTime;
-            printJobResult(job);
             count++;
         }
 
-        printFooterMessage(avgWaitingTime, avgTurnAroundTime);
+        printResults();
 
+    }
+
+    private void printResults() {
+        jobs.sort(new Comparator<Job>() {
+            @Override
+            public int compare(Job o1, Job o2) {
+                return o1.getProcessId() - o2.getProcessId();
+            }
+        });
+        printHeaderMessage();
+        for (Job job : jobs) {
+            printJobResult(job);
+        }
+        printFooterMessage(avgWaitingTime, avgTurnAroundTime);
 
     }
 }

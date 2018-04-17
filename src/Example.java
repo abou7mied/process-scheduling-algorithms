@@ -13,6 +13,7 @@ public class Example {
         System.out.println("[1] First come first served");
         System.out.println("[2] Shortest Remaining Time");
         System.out.println("[3] Round Robin");
+        System.out.println("[4] Shortest Job Next");
 
 
         Scanner scanner = new Scanner(System.in);
@@ -47,8 +48,12 @@ public class Example {
                     roundRobin.run();
                     break;
 
-            }
+                case 4:
+                    ShortestJobNext shortestJobNext = new ShortestJobNext(jobList);
+                    shortestJobNext.run();
+                    break;
 
+            }
 
 
         } catch (IOException e) {
